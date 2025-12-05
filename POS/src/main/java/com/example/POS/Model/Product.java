@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Data
 @Entity
@@ -41,6 +43,14 @@ public class Product {
     private Integer stock = 0;
 
     private Integer numOfReviews = 0;
+
+    @OneToMany (cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name = "product_id")
+    private List<ProductImage> images;
+
+    @OneToMany (cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name="product_id")
+    private List<ProductReview> reviews;
 
 
 
