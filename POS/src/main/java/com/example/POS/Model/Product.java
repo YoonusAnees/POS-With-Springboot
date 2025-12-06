@@ -27,6 +27,8 @@ public class Product {
     @NotBlank(message = "Description Field is Required")
     private String description;
 
+    private String category;
+
     @NotNull(message = "Price Filed is Required")
     @PositiveOrZero(message = "Value Must be Zero or Grater Than Zero")
     private double price;
@@ -51,11 +53,12 @@ public class Product {
     private List<ProductReview> reviews;
 
     // Your custom constructor
-    public Product(Long id, String name, String description, double price,
+    public Product(Long id, String name, String description, String category , double price,
                    Double ratings, String seller, Integer stock) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.category = category;
         this.price = price;
         this.ratings = ratings;
         this.seller = seller;
