@@ -9,10 +9,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Data                   // <-- ADD THIS
-@NoArgsConstructor      // <-- Already useful
-@AllArgsConstructor     // <-- Optional
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "products")
 public class Product {
@@ -33,7 +34,6 @@ public class Product {
     @PositiveOrZero(message = "Value Must be Zero or Grater Than Zero")
     private double price;
 
-    @NotNull(message = "Ratings Field is Required")
     private Double ratings = 0.0;
 
     @NotBlank(message = "Seller Field is Required")
@@ -44,17 +44,18 @@ public class Product {
 
     private Integer numOfReviews = 0;
 
+    // PRODUCT IMAGES (Unidirectional OK)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "product_id")
     private List<ProductImage> images;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "product_id")
+    // PRODUCT REVIEWS (Proper Bidirectional)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductReview> reviews;
 
     // Your custom constructor
-    public Product(Long id, String name, String description, String category , double price,
-                   Double ratings, String seller, Integer stock) {
+    public Product(Long id, String name, String description, String category, double price,
+                   Double ratings, String seller, Integer stock, List<String> images) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -63,5 +64,21 @@ public class Product {
         this.ratings = ratings;
         this.seller = seller;
         this.stock = stock;
+
+        // Convert String URLs to ProductImage objects
+        if (images != null) {
+            this.images = images.stream()
+                    .map(url -> new ProductImage(url,this))
+                    .collect(Collectors.toList());
+        }
     }
+
+
+
+
 }
+
+
+
+
+

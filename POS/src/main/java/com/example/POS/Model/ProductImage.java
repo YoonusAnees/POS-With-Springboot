@@ -1,22 +1,39 @@
 package com.example.POS.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class ProductImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String publicId;
+
     private String url;
+
+    public ProductImage() {
+    }
+
+    public ProductImage(Long id, String publicId, String url) {
+        this.id = id;
+        this.publicId = publicId;
+        this.url = url;
+    }
+
+    @ManyToOne()
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    public ProductImage(String url , Product product) {
+        this.url = "/uploads"+url;
+        this.publicId = url;
+        this.product = product;
+    }
+
+
 }
+
