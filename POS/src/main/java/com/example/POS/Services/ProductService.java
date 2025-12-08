@@ -206,11 +206,18 @@ public class ProductService {
         dto.setReviews(reviewDTOs);
 
         // MAPPING IMAGES
+//        List<ProductImageDTO> imageDTOs = product.getImages()
+//                .stream()
+//                .map(img -> new ProductImageDTO(img.getPublicId()))
+//                .collect(Collectors.toList());
+//        dto.setImages(imageDTOs);
+
         List<ProductImageDTO> imageDTOs = product.getImages()
                 .stream()
-                .map(img -> new ProductImageDTO(img.getPublicId()))
+                .map(img -> new ProductImageDTO(img.getUrl())) // return REAL URL
                 .collect(Collectors.toList());
         dto.setImages(imageDTOs);
+
 
         return dto;
     }

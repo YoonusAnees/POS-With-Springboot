@@ -28,11 +28,12 @@ public class ProductImage {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public ProductImage(String url , Product product) {
-        this.url = "/uploads"+url;
-        this.publicId = url;
+    public ProductImage(String url, Product product) {
+        this.url = url;          // keep original URL
+        this.publicId = url;     // or generate unique ID if needed
         this.product = product;
     }
+
 
 
 }
