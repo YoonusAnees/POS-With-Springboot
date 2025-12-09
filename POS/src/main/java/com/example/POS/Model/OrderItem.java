@@ -1,5 +1,6 @@
 package com.example.POS.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,8 @@ public class OrderItem {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
+    @JsonBackReference
+
     private Product product;
 
     public OrderItem() {

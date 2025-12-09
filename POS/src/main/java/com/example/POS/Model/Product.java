@@ -1,5 +1,6 @@
 package com.example.POS.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -47,10 +48,14 @@ public class Product {
     // PRODUCT IMAGES (Unidirectional OK)
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "product_id")
+    @JsonManagedReference
+
     private List<ProductImage> images;
 
     // PRODUCT REVIEWS (Proper Bidirectional)
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+
     private List<ProductReview> reviews;
 
     // Your custom constructor
