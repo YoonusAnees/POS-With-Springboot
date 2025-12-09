@@ -71,9 +71,4 @@ public class ProductController {
         return productService.searchProducts(category,minPrice,maxPrice,Keyword,ratings);
    }
 
-
-
-
-
-
 }
