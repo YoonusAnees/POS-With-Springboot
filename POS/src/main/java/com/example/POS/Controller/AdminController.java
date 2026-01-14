@@ -3,6 +3,10 @@ package com.example.POS.Controller;
 import com.example.POS.Model.User;
 import com.example.POS.Repository.UserRepository;
 import com.example.POS.exception.ResourceNotFoundException;
+
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +17,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
+@Getter
+@Setter
 public class AdminController {
 
     @Autowired

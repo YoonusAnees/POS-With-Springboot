@@ -10,6 +10,14 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class CreateOrderRequest {
-    private List<OrderItemDTO>  orderItem;
+    public List<OrderItemDTO> getOrderItem() {
+		return orderItem;
+	}
+
+	public void setOrderItem(List<OrderItemDTO> orderItem) {
+		this.orderItem = orderItem;
+	}
+
+	private List<OrderItemDTO>  orderItem;
 
 }

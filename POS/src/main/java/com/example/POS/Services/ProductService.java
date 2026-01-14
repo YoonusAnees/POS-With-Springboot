@@ -181,6 +181,48 @@ public class ProductService {
 //        return dto;
 //    }
 
+//    public ProductDTO convertToDTO(Product product) {
+//        ProductDTO dto = new ProductDTO();
+//
+//        dto.setId(product.getId());
+//        dto.setName(product.getName());
+//        dto.setDescription(product.getDescription());
+//        dto.setCategory(product.getCategory());
+//        dto.setPrice(product.getPrice());
+//        dto.setRatings(product.getRatings());
+//        dto.setSeller(product.getSeller());
+//        dto.setStock(product.getStock());
+//        dto.setNumOfReviews(product.getNumOfReviews());
+//
+//        // MAPPING REVIEWS
+//        List<ProductReviewDto> reviewDTOs = product.getReviews()
+//                .stream()
+//                .map(r -> new ProductReviewDto(
+//                        r.getProduct().getId(),
+//                        r.getRating(),
+//                        r.getComment()
+//                ))
+//                .collect(Collectors.toList());
+//        dto.setReviews(reviewDTOs);
+//
+//        // MAPPING IMAGES
+////        List<ProductImageDTO> imageDTOs = product.getImages()
+////                .stream()
+////                .map(img -> new ProductImageDTO(img.getPublicId()))
+////                .collect(Collectors.toList());
+////        dto.setImages(imageDTOs);
+//
+//        List<ProductImageDTO> imageDTOs = product.getImages()
+//                .stream()
+//                .map(img -> new ProductImageDTO(img.getUrl())) // return REAL URL
+//                .collect(Collectors.toList());
+//        dto.setImages(imageDTOs);
+//
+//
+//        return dto;
+//    }
+    
+    
     public ProductDTO convertToDTO(Product product) {
         ProductDTO dto = new ProductDTO();
 
@@ -194,33 +236,33 @@ public class ProductService {
         dto.setStock(product.getStock());
         dto.setNumOfReviews(product.getNumOfReviews());
 
-        // MAPPING REVIEWS
-        List<ProductReviewDto> reviewDTOs = product.getReviews()
-                .stream()
-                .map(r -> new ProductReviewDto(
-                        r.getProduct().getId(),
-                        r.getRating(),
-                        r.getComment()
-                ))
-                .collect(Collectors.toList());
+        // ✅ SAFE REVIEW MAPPING
+        List<ProductReviewDto> reviewDTOs =
+                product.getReviews() == null
+                        ? List.of()
+                        : product.getReviews().stream()
+                            .map(r -> new ProductReviewDto(
+                                    product.getId(),   // ✅ FIXED
+                                    r.getRating(),
+                                    r.getComment()
+                            ))
+                            .collect(Collectors.toList());
+
         dto.setReviews(reviewDTOs);
 
-        // MAPPING IMAGES
-//        List<ProductImageDTO> imageDTOs = product.getImages()
-//                .stream()
-//                .map(img -> new ProductImageDTO(img.getPublicId()))
-//                .collect(Collectors.toList());
-//        dto.setImages(imageDTOs);
+        // ✅ SAFE IMAGE MAPPING
+        List<ProductImageDTO> imageDTOs =
+                product.getImages() == null
+                        ? List.of()
+                        : product.getImages().stream()
+                            .map(img -> new ProductImageDTO(img.getUrl()))
+                            .collect(Collectors.toList());
 
-        List<ProductImageDTO> imageDTOs = product.getImages()
-                .stream()
-                .map(img -> new ProductImageDTO(img.getUrl())) // return REAL URL
-                .collect(Collectors.toList());
         dto.setImages(imageDTOs);
-
 
         return dto;
     }
+
 
 
 
