@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Data
+
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "products")
 public class Product {
 
@@ -166,9 +166,7 @@ public class Product {
         }
     }
 
-	public Product() {
-		// TODO Auto-generated constructor stub
-	}
+	
 
 
 

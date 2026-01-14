@@ -1,6 +1,5 @@
 package com.example.POS.DTO;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -11,7 +10,7 @@ import lombok.*;
 @Setter
 
 public class ProductReviewDto {
-    @NotBlank(message = "Product Name Field is Required")
+	@NotNull(message = "Product ID is required")
     private Long productId;
 
     @NotNull(message = "Rating  is Required")
@@ -45,13 +44,7 @@ public class ProductReviewDto {
 		this.comment = comment;
 	}
 
-	public ProductReviewDto(@NotBlank(message = "Product Name Field is Required") Long productId,
-			@NotNull(message = "Rating  is Required") Double rating, String comment) {
-		super();
-		this.productId = productId;
-		this.rating = rating;
-		this.comment = comment;
-	}
+	
 	
 	
 	
